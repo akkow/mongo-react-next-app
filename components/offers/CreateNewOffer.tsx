@@ -2,6 +2,7 @@ import { ChangeEvent, FormEvent, useEffect, useState } from "react"
 import { OfferDto } from "../../dto/offer.dto"
 import { createUrl } from "../../utils/url"
 import { redirect } from "next/navigation"
+import { useSession } from "next-auth/react"
 
 type IProps = {
     offerDto?: OfferDto
@@ -9,6 +10,9 @@ type IProps = {
 
 export function CreateNewOffer(props: IProps) {
     const { offerDto } = props
+
+    const { data: session, update } = useSession()
+    
     const [offerData, setOfferData] = useState<OfferDto>({} as OfferDto)
     useEffect(() => {
         if(offerDto) setOfferData(offerDto)
@@ -22,7 +26,7 @@ export function CreateNewOffer(props: IProps) {
             setOfferData({ ...offerData, [e.target.id]: e.target.value })
         }
     }
-
+    offerData.created_by = session.user._id
     console.log(offerData)
 
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {

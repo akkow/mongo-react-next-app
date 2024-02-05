@@ -11,6 +11,7 @@ export interface IOffer extends Document {
     remote: boolean;
     description: string;
     category: string;
+    created_by: string;
 }
 
 const OfferSchema: Schema = new Schema({
@@ -56,6 +57,9 @@ const OfferSchema: Schema = new Schema({
     category: { 
         type: String,
         required: [true, 'Please select a category'],
+    },
+    created_by: {
+        type: String,
     }
 });
 

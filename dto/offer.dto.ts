@@ -9,4 +9,5 @@ export class OfferDto {
     remote: boolean;
     description: string;
     category: string;
+    created_by: string;
 }
