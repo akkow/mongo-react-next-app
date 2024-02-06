@@ -18,8 +18,8 @@ export function OfferList(props: IProps) {
                 Sukurti naują
             </Link>
         {offers.map((offer) => (
-            <Link href={`/offers/${offer._id}`} key={offer._id} id='offer-card' className="flex flex-col items-center w-[100%] mb-4">
-                <div className="w-full max-w-lg">
+            <Link href={`/offers/${offer._id}`} key={offer._id} id='offer-card' className="flex flex-col items-center mb-4">
+                <div className="max-w-lg w-[500px]">
                     <div className="bg-white border hover:shadow-xl transition-all rounded-lg">
                         <div className="p-4">
                             <div>
@@ -37,7 +37,7 @@ export function OfferList(props: IProps) {
                         </div>
                     </div>
                 </div>
-             </Link>
+            </Link>
         ))}
         </div>
     </>

@@ -28,6 +28,17 @@ export function SavedOffers() {
         }
     }, [profileData])
 
+    function handleRemoveSavedOffer(offerId: string) {
+        profileData.savedOffers.splice(profileData.savedOffers.indexOf(offerId), 1)
+        console.log(profileData)
+        fetch(`/api/users/${profileData._id}`, {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(profileData),
+
+        }).then((res) => {res.json()})
+    }
+
     return (
         <>
         {data.map((offer) => (
@@ -52,6 +63,11 @@ export function SavedOffers() {
                     </div>
                 </div>
             </Link>
+            <div className="relative flex flex-col items-center">
+                <div className="bg-red-500 hover:px-2 transition-all text-white font-bold rounded-lg px-1">
+                    <button onClick={() => handleRemoveSavedOffer(offer._id)}>Šalinti</button>
+                </div>
+            </div>
         </div>
         ))}
         </>
