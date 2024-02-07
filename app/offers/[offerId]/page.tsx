@@ -17,6 +17,7 @@ type Params = {
 
 export default function OfferPage( {params: {offerId} }: Params) {
     const [offer, setOffer] = useState<OfferDto>({} as OfferDto)
+    const [userDto, setUserDto] = useState<UserDto | undefined>()
 
     const loadOffer = () => {
         fetch(createUrl(`api/offers/${offerId}`), {
@@ -25,9 +26,18 @@ export default function OfferPage( {params: {offerId} }: Params) {
         .then((r) => r.json())
         .then((c) => setOffer(c))
     }
+
+    const loadUsers = () => {
+        fetch(createUrl(`api/users`), {
+            cache: "no-store"
+        })
+        .then((r) => r.json())
+        .then((c) => setUserDto(c))
+    }
  
     useEffect(() => {
         loadOffer()
+        loadUsers()
     }, [])
 
     const { status } = useSession()
@@ -39,7 +49,7 @@ export default function OfferPage( {params: {offerId} }: Params) {
     }
     else if(status === 'authenticated') {
         return (
-            <OfferSinglePage {...{ offer }}/>
+            <OfferSinglePage {...{ offer, userDto, setUserDto, loadUsers }}/>
         )
     }
     else if(status === 'unauthenticated') {

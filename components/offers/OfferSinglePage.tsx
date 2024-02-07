@@ -5,36 +5,46 @@ import { useSession } from "next-auth/react"
 import { useEffect, useState } from "react"
 
 type IProps = {
-    offer: OfferDto  
+    offer: OfferDto
+    loadUsers: () => void
+    userDto?: UserDto
+    setUserDto: (c: UserDto) => void
 }
 
 export function OfferSinglePage(props: IProps) {
-    const { offer } = props
+    const { offer, loadUsers, userDto, setUserDto } = props
 
     const { data: session, update } = useSession()
 
     const [profileOfferData, setProfileOfferData] = useState<UserDto>({} as UserDto)
     
+    // useEffect(() => {
+    //     let savedOffers = []
+    //     if(profileOfferData?.savedOffers?.length) savedOffers = session.user.savedOffers 
+    //     if(!savedOffers.includes(offer._id)) savedOffers.push(offer._id)
+    //     setProfileOfferData({...session.user, savedOffers })
+    // }, [session, offer])
+
     useEffect(() => {
-        let savedOffers = []
-        if(profileOfferData?.savedOffers?.length) savedOffers = profileOfferData.savedOffers 
-        if(!savedOffers.includes(offer._id))
-        savedOffers.push(offer._id)
-        setProfileOfferData({...session.user, savedOffers })
-    }, [session, offer])
+        fetch(`/api/users/${session.user._id}`).then((res) => res.json()).then((data) => setProfileOfferData(data))
+    }, [offer])
 
     const saveOffer = () => {
+        let savedOffers: any = []
+        if(profileOfferData?.savedOffers?.length) savedOffers = profileOfferData.savedOffers
+        if(!savedOffers.includes(offer._id)) { 
+            savedOffers.push(offer._id)
+        } else {
+            let index = savedOffers.indexOf(offer._id)
+            savedOffers.splice(index, 1)
+        }
+        profileOfferData.savedOffers = savedOffers
         fetch(`/api/users/${profileOfferData._id}`, {
             method: "PUT",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(profileOfferData), 
         })
         .then((res) => {res.json()})
-    }
-
-    if(session.user.savedOffers.includes(offer._id)){
-        document.getElementById('book-mark-svg').style.fill = 'rgb(34 197 94)'
-        document.getElementById('book-mark-svg').style.stroke = 'rgb(34 197 90)'
     }
     return (
         <>
