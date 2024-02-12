@@ -16,7 +16,7 @@ export function SavedOffers() {
     const [profileData, setProfileData] = useState<UserDto>({} as UserDto)
 
     useEffect(() => {
-        setProfileData(session.user)
+        fetch(`/api/users/${session.user._id}`).then((res) => res.json()).then((datae) => setProfileData(datae))
         for(let i = 0; i < profileData.savedOffers?.length; i++) 
         {
             fetch(createUrl(`api/offers/${profileData.savedOffers[i]}`))
@@ -26,19 +26,7 @@ export function SavedOffers() {
                 if(data.length < profileData.savedOffers.length) setData(data => [r, ...data])
             })
         }
-    }, [profileData])
-
-    function handleRemoveSavedOffer(offerId: string) {
-        profileData.savedOffers.splice(profileData.savedOffers.indexOf(offerId), 1)
-        console.log(profileData)
-        fetch(`/api/users/${profileData._id}`, {
-            method: "PUT",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(profileData),
-
-        }).then((res) => {res.json()})
-    }
-
+    }, [profileData._id])
     return (
         <>
         {data.map((offer) => (
@@ -63,11 +51,6 @@ export function SavedOffers() {
                     </div>
                 </div>
             </Link>
-            <div className="relative flex flex-col items-center">
-                <div className="bg-red-500 hover:px-2 transition-all text-white font-bold rounded-lg px-1">
-                    <button onClick={() => handleRemoveSavedOffer(offer._id)}>Šalinti</button>
-                </div>
-            </div>
         </div>
         ))}
         </>
