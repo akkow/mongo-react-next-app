@@ -4,17 +4,18 @@ import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid'
 import { ObjectId } from 'mongoose'
 
 const categories = [
-  { id: 1, name: 'Visos' },
-  { id: 2, name: 'Informacinės technologijos' },
-  { id: 3, name: 'Gamyba' },
-  { id: 4, name: 'Finansai' },
-  { id: 5, name: 'Elektronika' },
-  { id: 6, name: 'Statyba' },
+  { id: 1, name: 'Visos', value: '' },
+  { id: 2, name: 'Informacinės technologijos', value: 'Informacinės Technologijos' },
+  { id: 3, name: 'Gamyba', value: 'Gamyba' },
+  { id: 4, name: 'Finansai', value: 'Finansai' },
+  { id: 5, name: 'Elektronika', value: 'Elektronika' },
+  { id: 6, name: 'Statyba', value: 'Statyba' },
 ]
 
-export default function FilterComboBoxCategory() {
+export default function FilterComboBoxCategory({ getDataFromChildren }: any) {
   const [selected, setSelected] = useState(categories[0])
   const [query, setQuery] = useState('')
+  getDataFromChildren(selected.value);
 
   const filteredCategories =
     query === ''

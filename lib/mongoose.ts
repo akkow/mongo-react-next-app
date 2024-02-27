@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 
 const MONGODB_URI = process.env.MONGODB_URI;
+const MONGO_DB = process.env.MONGO_DB;
 declare global {
     var mongoose: any;
 }
@@ -20,7 +21,7 @@ async function dbConnect() {
         return cached.conn
     }
     if(!cached.promise) {
-        const opts = {bufferCommands: false }
+        const opts = {bufferCommands: false, dbName: MONGO_DB}
         mongoose.set("strictQuery", false)
         cached.promise = mongoose
         .connect(MONGODB_URI, opts)

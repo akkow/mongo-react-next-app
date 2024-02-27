@@ -1,20 +1,21 @@
-import { Fragment, useState } from 'react'
+import { ChangeEvent, Fragment, useEffect, useState } from 'react'
 import { Combobox, Transition } from '@headlessui/react'
 import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid'
-import { ObjectId } from 'mongoose'
 
 const cities = [
-  { id: 1, name: 'Visi' },
-  { id: 2, name: 'Vilnius' },
-  { id: 3, name: 'Kaunas' },
-  { id: 4, name: 'Klaipėda' },
-  { id: 5, name: 'Šiauliai' },
-  { id: 6, name: 'Panevėžys' },
+  { id: 1, name: 'Visi', value: '' },
+  { id: 2, name: 'Vilnius', value: 'Vilnius' },
+  { id: 3, name: 'Kaunas', value: 'Kaunas' },
+  { id: 4, name: 'Klaipėda', value: 'Klaipėda' },
+  { id: 5, name: 'Šiauliai', value: 'Šiauliai' },
+  { id: 6, name: 'Panevėžys', value: 'Panevėžys' },
 ]
 
-export default function FilterComboBox() {
+export default function FilterComboBox({ getDataFromChildren }: any) {
+
   const [selected, setSelected] = useState(cities[0])
   const [query, setQuery] = useState('')
+  getDataFromChildren(selected.value);
 
   const filteredCities =
     query === ''
