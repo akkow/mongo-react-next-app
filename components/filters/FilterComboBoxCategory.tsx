@@ -1,4 +1,4 @@
-import { Fragment, useState } from 'react'
+import { Fragment, useEffect, useState } from 'react'
 import { Combobox, Transition } from '@headlessui/react'
 import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid'
 import { ObjectId } from 'mongoose'
@@ -16,7 +16,11 @@ export default function FilterComboBoxCategory({ getDataFromChildren }: any) {
   const [selected, setSelected] = useState(categories[0])
   const [query, setQuery] = useState('')
   getDataFromChildren(selected.value);
-
+  useEffect(() => {
+    document.getElementById('clearFiltersBtn').addEventListener('click', function() {
+      setSelected(categories[0])
+    });
+  }, [])
   const filteredCategories =
     query === ''
       ? categories

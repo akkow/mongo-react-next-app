@@ -16,7 +16,11 @@ export default function FilterComboBox({ getDataFromChildren }: any) {
   const [selected, setSelected] = useState(cities[0])
   const [query, setQuery] = useState('')
   getDataFromChildren(selected.value);
-
+  useEffect(() => {
+    document.getElementById('clearFiltersBtn').addEventListener('click', function() {
+      setSelected(cities[0])
+    });
+  }, [])
   const filteredCities =
     query === ''
       ? cities

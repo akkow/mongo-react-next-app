@@ -136,12 +136,25 @@ export function CreateNewOffer(props: IProps) {
                                 </label>
                             </div>
                         </div>
-                            <button
-                            className="mt-6 block w-full select-none rounded-lg bg-green-500 py-3 px-6 text-center align-middle font-sans text-xs font-bold uppercase text-white shadow-md shadow-green-500/20 transition-all hover:shadow-lg hover:shadow-green-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+                        <p className="flex flex-col font-bold items-center font-sans text-lg leading-normal text-gray-900 antialiased">
+                            Ar norite sukurti testa kandidatams?
+                        </p>
+                        <button
+                            className="mt-2 block w-full select-none rounded-lg bg-gradient-to-r from-cyan-500 via-emerald-500 to-teal-500 py-3 px-6 text-center align-middle font-sans text-xs font-bold uppercase text-white shadow-md shadow-green-500/20 transition-all hover:shadow-lg hover:shadow-green-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
                             type="submit"
                             data-ripple-light="true"
                             >
-                            saugoti
+                            Kurti testą
+                        </button>
+                        <div className="flex flex-col items-center">
+                            <hr className="bg-gradient-to-r from-cyan-500 via-emerald-500 to-teal-500 h-[3px] rounded-xl mt-4 mb-4 w-60"/>
+                        </div>
+                        <button
+                            className="block w-full select-none rounded-lg bg-green-500 py-3 px-6 text-center align-middle font-sans text-xs font-bold uppercase text-white shadow-md shadow-green-500/20 transition-all hover:shadow-lg hover:shadow-green-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+                            type="submit"
+                            data-ripple-light="true"
+                            >
+                            sukurti skelbimą
                         </button>
                     </form>
                 </div>

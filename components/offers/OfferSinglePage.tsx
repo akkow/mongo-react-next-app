@@ -3,6 +3,7 @@ import { OfferDto } from "../../dto/offer.dto"
 import { UserDto } from "../../dto/user.dto"
 import { useSession } from "next-auth/react"
 import { useEffect, useState } from "react"
+import { LoadingDelay } from "../utils/LoadingDelay"
 
 type IProps = {
     offer: OfferDto
@@ -26,9 +27,16 @@ export function OfferSinglePage(props: IProps) {
     //     if(!savedOffers.includes(offer._id)) savedOffers.push(offer._id)
     //     setProfileOfferData({...session.user, savedOffers })
     // }, [session, offer])
-
+    
     useEffect(() => {
-        fetch(`/api/users/${session.user._id}`).then((res) => res.json()).then((data) => setProfileOfferData(data))
+        fetch(`/api/users/${session.user._id}`)
+        .then((res) => res.json())
+        .then((data) => 
+        {   
+            document.getElementById('offer-card-dynamic').classList.remove('hidden')
+            document.getElementById('loader').classList.add('hidden')
+            setProfileOfferData(data)
+        })
     }, [])
 
     const saveOffer = () => {
@@ -77,12 +85,15 @@ export function OfferSinglePage(props: IProps) {
     })
 
     return (
-        <>
+        <>  
+            <div id="loader" className="flex flex-col items-center py-80" role="status">
+                <span className="loading loading-dots loading-lg w-24 bg-gradient-to-r from-green-500 via-emerald-500 to-teal-500"></span>
+            </div>
             <div id='alert-success' role="alert" className={`hidden alert alert-success absolute left-[40%] top-10 w-96 transition-all duration-1000 ${fade ? "opacity-100" : "opacity-0"}`}>
                 <svg xmlns="http://www.w3.org/2000/svg" className="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
                 <span className="font-bold" id='text-of-alert'></span>
             </div>
-            <div>
+            <div id="offer-card-dynamic" className="hidden">
                 <div className="relative flex flex-col items-center rounded-lg shadow-xl border w-[80%] mt-10 mx-auto">
                     <div className="w-[90%] py-4">
                         <div className="flex flex-col w-[100%]">
