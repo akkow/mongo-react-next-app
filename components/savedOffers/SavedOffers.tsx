@@ -17,20 +17,29 @@ export function SavedOffers() {
 
     useEffect(() => {
         fetch(`/api/users/${session.user._id}`).then((res) => res.json()).then((datae) => setProfileData(datae))
+        if(profileData.savedOffers?.length == 0) {
+            document.getElementById('loader').classList.add('hidden');
+            document.getElementById('notification').classList.remove('hidden');
+        }
         for(let i = 0; i < profileData.savedOffers?.length; i++) 
         {
             fetch(createUrl(`api/offers/${profileData.savedOffers[i]}`))
             .then((r) => r.json())
-            .then((r) => 
-            {
-                if(data.length < profileData.savedOffers.length) setData(data => [r, ...data])
+            .then((k) => 
+            {   
+                document.getElementById('loader').classList.add('hidden');
+                if(data.length < profileData.savedOffers.length) setData(data => [k, ...data])
             })
         }
     }, [profileData._id])
     return (
         <>
+        <div id="loader" className="flex flex-col items-center py-80" role="status">
+            <span className="loading loading-dots loading-lg w-24 bg-gradient-to-r from-green-500 via-emerald-500 to-teal-500"></span>
+        </div>
+        <div id="notification" className="hidden flex flex-col items-center mt-2 mb-10"><h1 className="font-bold text-2xl text-black mt-2 mb-6">Nėra įsimintų skelbimų</h1></div>
         {data.map((offer) => (
-        <div className="relative flex flex-col items-center mt-4">
+        <div id="saved-offer-card" className="relative flex flex-col items-center mt-4">
             <Link href={`/offers/${offer?._id}`} key={offer._id} id='offer-card' className="flex flex-col items-center w-[510px] mb-4">
                 <div className="w-full max-w-lg">
                     <div className="bg-white border hover:shadow-xl transition-all rounded-lg">

@@ -1,1 +1,1 @@
-export const createUrl = (link: string) => `https://baigiamasis-darbas-eta.vercel.app/${link}`
+export const createUrl = (link: string) => `http://localhost:3000/${link}`
