@@ -30,7 +30,6 @@ export function ProfileSetUp(props: IProps) {
         e.preventDefault()
 
         const link = `api/users/${profileSetUpData._id}`
-        console.log(JSON.stringify(profileSetUpData))
 
         fetch(createUrl(link), {
             method: "PUT",
@@ -41,7 +40,6 @@ export function ProfileSetUp(props: IProps) {
             if(profileSetUpData?._id) setUserDto(undefined)
             loadUsers()
             setProfileSetUpData(undefined)
-            console.log(res)
         })
         .catch((e) => console.log(e))
     }
