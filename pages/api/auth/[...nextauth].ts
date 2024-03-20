@@ -46,6 +46,9 @@ export const authOptions: NextAuthOptions = {
                     password: user.password,
                     linkedIn: user.linkedIn,
                     savedOffers: user.savedOffers,
+                    isEmployer: user.isEmployer,
+                    createdOffers: user.createdOffers,
+                    isAdmin: user.isAdmin
                 }
                 return userAccount as any
             },

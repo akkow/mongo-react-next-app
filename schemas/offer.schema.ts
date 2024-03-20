@@ -46,8 +46,8 @@ const OfferSchema: Schema = new Schema({
         maxlength: [20, 'Iki 20 ženklų']
     },
     remote: { 
-        type: Boolean, 
-        required: [true, 'Please enter if remote']
+        type: Boolean,
+        default: false
     },
     description: { 
         type: String, 

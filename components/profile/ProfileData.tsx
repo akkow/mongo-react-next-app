@@ -28,7 +28,6 @@ export function ProfileData(props: IProps) {
     }, [userDto])
 
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
-        console.log('XD')
 
         e.preventDefault()
 
@@ -40,11 +39,9 @@ export function ProfileData(props: IProps) {
             body: JSON.stringify(profileData),
         })
         .then((res) => {
-            console.log(profileData)
             if(profileData?._id) setUserDto(undefined)
             loadUsers()
             setProfileData(undefined)
-            console.log(res)
         })
         .catch((e) => console.log(e))
     }

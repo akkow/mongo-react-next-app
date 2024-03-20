@@ -43,6 +43,7 @@ export function RegistrationForm(props: IProps) {
         registrationData.password = getValues('password')
         registrationData.name = getValues('name')
         registrationData.surname = getValues('lastname')
+        registrationData.isEmployer = getValues('employer')
 
         const link = `api/users`      
         fetch(createUrl(link), {
@@ -124,6 +125,23 @@ export function RegistrationForm(props: IProps) {
                         </label>
                     </div>
                     {errors.confirmTOS && (<p className="peer-[&:not(:placeholder-shown):not(:focus):invalid]:block text-xs flex items-center flex-col text-red-500">{errors.confirmTOS.message}</p>)}
+                    <div className="flex items-center">
+                        <label className="relative -ml-2.5 flex cursor-pointer items-center rounded-full p-3" htmlFor="checkbox" data-ripple-dark="true">
+                            <input {...register('employer')}
+                            type="checkbox"
+                            className="before:content[''] peer relative h-5 w-5 cursor-pointer appearance-none rounded-md border border-blue-gray-200 transition-all before:absolute before:top-2/4 before:left-2/4 before:block before:h-12 before:w-12 before:-translate-y-2/4 before:-translate-x-2/4 before:rounded-full before:bg-blue-gray-500 before:opacity-0 before:transition-opacity checked:border-green-500 checked:bg-green-500 checked:before:bg-green-500 hover:before:opacity-10" />
+                            <span className="pointer-events-none absolute top-2/4 left-2/4 -translate-y-2/4 -translate-x-2/4 text-white opacity-0 transition-opacity peer-checked:opacity-100">
+                                <svg xmlns="http://www.w3.org/2000/svg" className="h-3.5 w-3.5" viewBox="0 0 20 20" fill="currentColor" stroke="currentColor" stroke-width="1">
+                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                                </svg>
+                            </span>
+                        </label>
+                        <label className="mt-px cursor-pointer select-none font-light text-gray-700" htmlFor="checkbox">
+                            <p className="flex flex-col items-center text-sm font-medium transition-colors hover:text-green-500 leading-normal text-gray-700 ">
+                                Registruotis kaip darbdaviui
+                            </p>
+                        </label>
+                    </div>
                     <button className="mt-6 block w-full select-none rounded-lg bg-green-500 py-3 px-6 text-center align-middle font-sans text-xs font-bold uppercase text-white shadow-md shadow-green-500/20 transition-all hover:shadow-lg hover:shadow-green-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="submit" data-ripple-light="true">
                         Registruotis
                     </button>

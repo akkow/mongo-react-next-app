@@ -21,7 +21,9 @@ export async function PostUserService(user: UserDto): Promise<void> {
             password: hashedPassword,
             linkedIn: '',
             position: '',
-            phoneNumber: ''
+            phoneNumber: '',
+            isEmployer: user.isEmployer,
+            isAdmin: user.isAdmin
         })
         console.log("new user registered..")
     }

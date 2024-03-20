@@ -7,5 +7,8 @@ export class UserDto {
     phoneNumber: number;
     linkedIn: string;
     password: string;
-    savedOffers: any[];
+    savedOffers: string[];
+    isEmployer: boolean;
+    createdOffers: string[];
+    isAdmin: boolean;
 }

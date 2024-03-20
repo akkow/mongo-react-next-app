@@ -24,10 +24,10 @@ export function CreateNewOffer(props: IProps) {
         }
         else {
             setOfferData({ ...offerData, [e.target.id]: e.target.value })
+            offerData.remote = false;
         }
     }
-    offerData.created_by = session.user._id
-    console.log(offerData)
+    offerData.created_by = session.user._id;
 
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault()
@@ -36,9 +36,6 @@ export function CreateNewOffer(props: IProps) {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(offerData),
-        })
-        .then((res) => {
-            console.log(res)
         })
         .catch((e) => console.log(e))
     }

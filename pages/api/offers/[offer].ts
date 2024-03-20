@@ -1,6 +1,7 @@
 import connect from "../../../lib/mongoose";
 import type { NextApiRequest, NextApiResponse } from "next";
 import { GetOfferService } from "../../../services/api/offer/GetOfferService";
+import { DeleteOfferService } from "../../../services/api/offer";
 
 export default async function Offer(req: NextApiRequest, res: NextApiResponse) {
 
@@ -12,7 +13,11 @@ export default async function Offer(req: NextApiRequest, res: NextApiResponse) {
             res.json(offer)
             break
         }
+        case "DELETE": {
+            const offer = await DeleteOfferService(req?.query?.offer.toString())
+            res.json(offer);
+            break;
+        }
     }
-
     res.end()
 }

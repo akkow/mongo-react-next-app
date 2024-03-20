@@ -9,7 +9,10 @@ export interface IUser extends Document {
     position: string
     phoneNumber: number
     linkedIn: string
-    savedOffers: any[]
+    savedOffers: string[]
+    isEmployer: boolean
+    createdOffers: string[]
+    isAdmin: boolean;
 }
 
 const UserSchema: Schema = new Schema({
@@ -34,6 +37,9 @@ const UserSchema: Schema = new Schema({
     phoneNumber: { type: Number},
     linkedIn: { type: String },
     savedOffers: [{ type: String }],
+    isEmployer: { type: Boolean, default: false },
+    createdOffers: [{ type: String }],
+    isAdmin: { type: Boolean, default: false }
 });
 
 export const User: Model<IUser, {}, {}, {}, any> = 
