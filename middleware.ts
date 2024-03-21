@@ -9,4 +9,4 @@ export default withAuth({
     },
 });
 
-export const config = { matcher: ['/((?!.+\\.[\\w]+$|_next).*)", "/", "/(api|trpc)(.*)']}
+export const config = { matcher: ['/dashboard', '/createNewOffer', '/offers', '/profile', '/registration', '/savedoffers'] }
