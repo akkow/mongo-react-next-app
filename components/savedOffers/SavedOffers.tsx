@@ -1,5 +1,5 @@
 import { useSession } from "next-auth/react";
-import { _id } from "@next-auth/mongodb-adapter"
+import { _id } from "@next-auth/mongodb-adapter/dist"
 import Link from "next/link";
 import { OfferDto } from "../../dto/offer.dto";
 import { createUrl } from "../../utils/url";

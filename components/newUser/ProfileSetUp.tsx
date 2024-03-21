@@ -1,7 +1,7 @@
 import { ChangeEvent, FormEvent, useEffect, useState } from "react"
 import { createUrl } from "../../utils/url"
 import { UserDto } from "../../dto/user.dto"
-import { _id } from "@next-auth/mongodb-adapter"
+import { _id } from "@next-auth/mongodb-adapter/dist"
 
 type IProps = {
     loadUsers: () => void 

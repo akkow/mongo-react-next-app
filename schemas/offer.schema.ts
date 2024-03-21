@@ -56,6 +56,7 @@ const OfferSchema: Schema = new Schema({
     },
     category: { 
         type: String,
+        default: 'Informacinės technologijos',
         required: [true, 'Please select a category'],
     },
     created_by: {

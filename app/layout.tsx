@@ -5,7 +5,7 @@ import "../styles/globals.css"
 
 export const metadata = {
   title: "CV Portalas",
-  description: "CV Portalas kursinis",
+  description: "CV Portalas",
 }
 
 export default function RootLayout({

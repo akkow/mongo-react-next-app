@@ -1,6 +1,6 @@
 import NextAuth, { NextAuthOptions } from "next-auth";
 import clientPromise from "../../../lib/mongodb";
-import { MongoDBAdapter } from "@next-auth/mongodb-adapter";
+import { MongoDBAdapter } from "@next-auth/mongodb-adapter/dist";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { IUser, User } from "../../../schemas/user.schema";
 import connect from "../../../lib/mongoose";
@@ -64,6 +64,10 @@ export const authOptions: NextAuthOptions = {
         colorScheme: "light",
     },
     callbacks: {
+        async jwt({ token, user }) {
+            return { ...token, ...user}
+        },
+
         async session({ session, token, user}) {
             const s: any = session
             if (userAccount !== null) {
@@ -74,17 +78,10 @@ export const authOptions: NextAuthOptions = {
                 (typeof s.user === typeof undefined || 
                     typeof s.user !== typeof undefined)
             )
-                s.user = token.user as any;
+                s.user = token as any;
             else if (typeof token !== typeof undefined) s.token = token
 
             return s
-        },
-
-        async jwt({ token, user, account, profile, isNewUser }) {
-            if (typeof user !== typeof undefined) {
-                token.user = user;
-            }
-            return token
         },
     },
     pages: {

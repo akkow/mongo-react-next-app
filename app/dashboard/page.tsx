@@ -12,7 +12,9 @@ export default function Dashboard() {
     const { status } = useSession()
 
     if(status === 'loading') {
-        <LoadingDelay />
+        return (
+            <LoadingDelay />
+        )
     }
     else if(status === 'authenticated') {
         return (

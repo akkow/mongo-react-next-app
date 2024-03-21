@@ -1,4 +1,4 @@
-import { _id } from "@next-auth/mongodb-adapter"
+import { _id } from "@next-auth/mongodb-adapter/dist"
 
 
 export function Alerts() {

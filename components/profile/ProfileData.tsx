@@ -2,7 +2,7 @@ import { useSession } from "next-auth/react";
 import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import { UserDto } from "../../dto/user.dto";
 import { createUrl } from "../../utils/url";
-import { _id } from "@next-auth/mongodb-adapter"
+import { _id } from "@next-auth/mongodb-adapter/dist"
 import { ObjectId } from "mongodb";
 
 type IProps = {
