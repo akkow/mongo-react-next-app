@@ -64,10 +64,6 @@ export const authOptions: NextAuthOptions = {
         colorScheme: "light",
     },
     callbacks: {
-        async jwt({ token, user }) {
-            return { ...token, ...user}
-        },
-
         async session({ session, token, user}) {
             const s: any = session
             if (userAccount !== null) {
@@ -78,10 +74,14 @@ export const authOptions: NextAuthOptions = {
                 (typeof s.user === typeof undefined || 
                     typeof s.user !== typeof undefined)
             )
-                s.user = token as any;
+                s.user = token.user as any;
             else if (typeof token !== typeof undefined) s.token = token
 
             return s
+        },
+
+        async jwt({ token, user }) {
+            return { ...token, ...user}
         },
     },
     pages: {

@@ -1,16 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import { createUrl } from '../../utils/url';
 import { OfferDto } from '../../dto/offer.dto';
-import { Alerts } from '../utils/Alerts';
 import { LoadingDelay } from '../utils/LoadingDelay';
-import { IUser, User } from '../../schemas/user.schema';
 
 export default function DashBoardPage() {
 
     const [data, setData] = useState<OfferDto[]>([])
 
     useEffect(() => {
-        fetch(createUrl('api/offers')).then((r) => r.json()).then((e) => {setData(e), document.getElementById('preloader').style.display = 'none'})
+        fetch(createUrl('api/offers'))
+        .then((r) => r.json())
+        .then((e) => {
+            setData(e);
+            document.getElementById('preloader').style.display = 'none';
+        })
     }, [data])
 
     function handleDelete(id: string) {
