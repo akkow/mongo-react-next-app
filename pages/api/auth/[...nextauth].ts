@@ -80,8 +80,11 @@ export const authOptions: NextAuthOptions = {
             return s
         },
 
-        async jwt({ token, user }) {
-            return { ...token, ...user}
+        async jwt({ token, user, account, profile, isNewUser }) {
+            if (typeof user !== typeof undefined) {
+                token.user = user;
+            }
+            return token
         },
     },
     pages: {
