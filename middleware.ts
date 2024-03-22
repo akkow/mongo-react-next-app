@@ -4,9 +4,17 @@ export default withAuth({
     secret: process.env.NEXTAUTH_SECRET,
     callbacks: {
         authorized({ req, token }) {
+            if(token) { 
+                if(token.user.isAdmin == false && req.nextUrl.pathname == '/dashboard') {
+                    return false
+                }
+                else{
+                    return true
+                }
+            }
             return !!token;
         },
     },
 });
 
-export const config = { matcher: ['/dashboard', '/createNewOffer', '/offers', '/profile', '/registration', '/savedoffers'] }
+export const config = { matcher: ['/dashboard', '/createNewOffer', '/offers', '/profile', '/savedoffers'] }

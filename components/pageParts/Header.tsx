@@ -54,9 +54,9 @@ export function Header() {
           </button>
         </div>
         <Popover.Group className="hidden lg:flex lg:gap-x-12">
-          <a href='/dashboard' className="p-2 transition-colors bg-gradient-to-r from-indigo-500 from-10% via-sky-500 via-30% to-emerald-500 to-90% rounded-xl text-md font-bold leading-6 text-black flex items-center gap-x-2">
-            ADMIN
-          </a>
+          {session?.user.isAdmin && <a href='/dashboard' className="p-2 transition-colors bg-gradient-to-r from-indigo-500 from-10% via-sky-500 via-30% to-emerald-500 to-90% rounded-xl text-md font-bold leading-6 text-black flex items-center gap-x-2">
+            Administracijos panelė
+          </a>}
           <a href='/offers' className="transition-colors hover:text-green-500 text-md font-bold leading-6 text-black flex items-center gap-x-2">
             Darbo skelbimai
           </a>

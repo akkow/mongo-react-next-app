@@ -18,7 +18,11 @@ export default function Offers() {
             cache: 'no-store',
         })
         .then((r) => r.json())
-        .then((c) => setOffers(c))
+        .then((c) => {
+            setOffers(c);
+            document.getElementById('loader').style.display = 'none'
+            document.getElementById('offers-list').classList.remove('hidden');
+        })
     }
 
     useEffect(() => {
@@ -30,7 +34,12 @@ export default function Offers() {
     }
     else if(status === 'authenticated') {
         return (
-            <OfferList {...{offers}}/>
+            <>
+                <div id="loader" className="flex flex-col items-center py-80" role="status">
+                    <span className="loading loading-dots loading-lg w-24 bg-gradient-to-r from-green-500 via-emerald-500 to-teal-500"></span>
+                </div>
+                <OfferList {...{offers}}/>
+            </>
         ) 
     }
     else {
