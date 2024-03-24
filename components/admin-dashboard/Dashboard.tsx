@@ -2,10 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { createUrl } from '../../utils/url';
 import { OfferDto } from '../../dto/offer.dto';
 import { LoadingDelay } from '../utils/LoadingDelay';
+import toast, { Toaster } from 'react-hot-toast';
 
 export default function DashBoardPage() {
 
     const [data, setData] = useState<OfferDto[]>([])
+    const [mode, setMode] = useState('offers')
 
     useEffect(() => {
         fetch(createUrl('api/offers'))
@@ -21,12 +23,17 @@ export default function DashBoardPage() {
             method: "DELETE",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(data)
+        }).then(r => {
+            if(r.status == 200) {
+                toast.success('Sėkmingai ištrintas skelbimas: ' + id)
+            }
         })
         setData(data)
     };
     let i = 1;
     return (
         <>
+            <Toaster />
             <div className="overflow-x-auto mt-20 p-4">
                 <table className="table border-2 border-indigo-600">
                     <thead>

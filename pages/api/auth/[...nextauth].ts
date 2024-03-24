@@ -28,14 +28,14 @@ export const authOptions: NextAuthOptions = {
                     email: credentials.email,
                 })
                 if(!user) {
-                    throw new Error("No user found!")
+                    throw new Error("Nerastas vartotojas.")
                 }
                 const isAuthenticated = await verifyPassword(
                     credentials.password,
                     user.password
                 )
 
-                if (!isAuthenticated) throw new Error("negeras slaptazodis")
+                if (!isAuthenticated) throw new Error("Netinkamas slaptažodis, bandykite dar kartą.")
                 userAccount = {
                     _id: user._id,
                     email: user.email,

@@ -5,7 +5,7 @@ export default withAuth({
     callbacks: {
         authorized({ req, token }) {
             if(token) { 
-                if(token.user.isAdmin == false && req.nextUrl.pathname == '/dashboard') {
+                if((token as any).user.isAdmin == false && req.nextUrl.pathname == '/dashboard') {
                     return false
                 }
                 else{
