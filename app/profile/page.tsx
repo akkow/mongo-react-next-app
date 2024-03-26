@@ -8,11 +8,12 @@ import { createUrl } from "../../utils/url"
 
 export default function ProfilePage() {
 
-    const [users, setUsers] = useState<UserDto[]>([])
+    const [user, setUsers] = useState<UserDto[]>([])
     const [userDto, setUserDto] = useState<UserDto | undefined>()
 
-    const loadUsers = () => {
-        fetch(createUrl(`api/users`), {
+    const { data: session } = useSession();
+    const loadUser = () => {
+        fetch(createUrl(`api/users/${session.user._id}`), {
             cache: "no-store"
         })
         .then((r) => r.json())
@@ -20,14 +21,14 @@ export default function ProfilePage() {
     }
 
     useEffect(() => {
-        loadUsers()
+        loadUser()
     }, [])
 
     const { status } = useSession()
         if(status === "authenticated") 
         {
             return (
-                <ProfileData {...{loadUsers, userDto, setUserDto, users}} />
+                <ProfileData {...{loadUser, userDto, setUserDto, user}} />
             )
 
         }

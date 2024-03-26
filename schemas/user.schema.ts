@@ -7,7 +7,7 @@ export interface IUser extends Document {
     surname: string
     email: string
     position: string
-    phoneNumber: number
+    phoneNumber: string
     linkedIn: string
     savedOffers: string[]
     isEmployer: boolean
@@ -34,7 +34,7 @@ const UserSchema: Schema = new Schema({
         required: [true, 'Please enter an email']
     },
     position: { type: String },
-    phoneNumber: { type: Number},
+    phoneNumber: { type: String},
     linkedIn: { type: String },
     savedOffers: [{ type: String }],
     isEmployer: { type: Boolean, default: false },

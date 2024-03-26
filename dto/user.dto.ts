@@ -4,7 +4,7 @@ export class UserDto {
     surname: string;
     email: string;
     position: string;
-    phoneNumber: number;
+    phoneNumber: string;
     linkedIn: string;
     password: string;
     savedOffers: string[];
