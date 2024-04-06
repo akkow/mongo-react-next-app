@@ -1,7 +1,6 @@
 import { hash } from "bcryptjs"
 import { UserDto } from "../../../dto/user.dto"
 import { User } from "../../../schemas/user.schema"
-import { ObjectId } from "mongodb"
 
 export async function PostUserService(user: UserDto): Promise<void> {
     const isUserFound = await User.findOne({email: user.email})
@@ -23,7 +22,8 @@ export async function PostUserService(user: UserDto): Promise<void> {
             position: '',
             phoneNumber: '',
             isEmployer: user.isEmployer,
-            isAdmin: user.isAdmin
+            isAdmin: user.isAdmin,
+            company: user.company
         })
         console.log("new user registered..")
     }

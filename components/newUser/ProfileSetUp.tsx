@@ -2,7 +2,7 @@ import { ChangeEvent, FormEvent, useEffect, useState } from "react"
 import { createUrl } from "../../utils/url"
 import { UserDto } from "../../dto/user.dto"
 import { _id } from "@next-auth/mongodb-adapter/dist"
-import toast from "react-hot-toast"
+import toast, { Toaster } from "react-hot-toast"
 
 type IProps = {
     loadUser: () => void 
@@ -35,14 +35,19 @@ export function ProfileSetUp(props: IProps) {
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(profileSetUpData),
         })
-        .then((res) => {
-            if(profileSetUpData?._id) setUserDto(undefined)
-            loadUser()
+        .then(({ok}) => {
+            if(ok) {
+                toast.success('Profilis sėkmingai sudarytas.')
+            }
+            else {
+                toast.error('Profilio sudarymas nepavyko.')
+            }
         })
-        .catch((e) => console.log(e))
     }
 
     return (
+        <>
+        <Toaster />
         <div className="relative flex flex-col items-center bg-transparent bg-clip-border text-gray-700 bottom-40 mt-4">
             <div className="flex mx-3 p-6 shadow-xl rounded-xl">
                 <form onSubmit={handleSubmit} className="mt-8 mb-2 w-80 max-w-screen-lg sm:w-96" noValidate>
@@ -81,5 +86,6 @@ export function ProfileSetUp(props: IProps) {
                 </form>
              </div>
         </div>   
+        </>
     )
 }    

@@ -8,6 +8,9 @@ export default withAuth({
                 if((token as any).user.isAdmin == false && req.nextUrl.pathname == '/dashboard') {
                     return false
                 }
+                else if((token as any).user.isEmployer == false && req.nextUrl.pathname == '/createNewOffer') {
+                    return false
+                }
                 else{
                     return true
                 }

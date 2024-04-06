@@ -6,7 +6,7 @@ import { LoadingDelay } from "../../components/utils/LoadingDelay"
 import { CreateNewOffer } from "../../components/offers/CreateNewOffer"
 import { useState } from "react"
 
-export default function Offers() {
+export default function CreateNewOfferPage() {
 
     const [offerDto, setOfferDto] = useState<OfferDto | undefined>()
 

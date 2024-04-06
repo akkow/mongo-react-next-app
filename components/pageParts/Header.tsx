@@ -38,7 +38,7 @@ export function Header() {
     <header className="bg-white">
       <nav className="mx-auto flex max-w-7xl items-center justify-between p-2 lg:px-8" aria-label="Global">
         <div className="-mx-8 flex lg:flex-1">
-          <a href="/" className="-mx-8 p-1.5">
+          <a href="/" className="-mx-40 p-1.5">
             <span className="sr-only">CV</span>
             <img className="h-12" src="https://icons.iconarchive.com/icons/academicons-team/academicons/128/cv-icon.png" alt="" />
           </a>
@@ -53,22 +53,28 @@ export function Header() {
             <Bars3Icon className="h-6 w-6" aria-hidden="true" />
           </button>
         </div>
-        <Popover.Group className="hidden lg:flex lg:gap-x-12">
+        <Popover.Group className="hidden lg:flex lg:gap-x-10">
           {session?.user.isAdmin && <a href='/dashboard' className="p-2 transition-colors bg-gradient-to-r from-indigo-500 from-10% via-sky-500 via-30% to-emerald-500 to-90% rounded-xl text-md font-bold leading-6 text-black flex items-center gap-x-2">
             Administracijos panelė
           </a>}
           <a href='/offers' className="transition-colors hover:text-green-500 text-md font-bold leading-6 text-black flex items-center gap-x-2">
             Darbo skelbimai
           </a>
-          <a href="/companies" className="transition-colors hover:text-green-500 text-md font-bold leading-6 text-black flex items-center gap-x-2">
+          {!session?.user.isEmployer && <a href="/companies" className="transition-colors hover:text-green-500 text-md font-bold leading-6 text-black flex items-center gap-x-2">
             Darbdaviai
-          </a>
-          <a href="/create-cv" className="transition-colors hover:text-green-500 text-md font-bold leading-6 text-black flex items-center gap-x-2">
+          </a>}
+          {!session?.user.isEmployer && <a href="/create-cv" className="transition-colors hover:text-green-500 text-md font-bold leading-6 text-black flex items-center gap-x-2">
             Mano CV
-          </a>
-          <a href="/savedoffers" className="transition-colors hover:text-green-500 text-md font-bold leading-6 text-black flex items-center gap-x-2">
+          </a>}
+          {session && <a href="/savedoffers" className="transition-colors hover:text-green-500 text-md font-bold leading-6 text-black flex items-center gap-x-2">
             Įsiminti skelbimai
-          </a>
+          </a>}
+          {session?.user.isEmployer && <a href="/createNewOffer" className="transition-colors hover:text-green-500 text-md font-bold leading-6 text-black flex items-center gap-x-2">
+            Sukurti skelbimą
+          </a>}
+          {session?.user.isEmployer && <a href="/createdOffers" className="transition-colors hover:text-green-500 text-md font-bold leading-6 text-black flex items-center gap-x-2">
+            Mano skelbimai
+          </a>}
           {
           session && 
           <a className='shadow-xl transition-colors hover:bg-green-600 gap-x-2 inline-flex px-2 py-2 bg-green-500 rounded-full text-white text-md font-bold leading-6' href='/profile'>
