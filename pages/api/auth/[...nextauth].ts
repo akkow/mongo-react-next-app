@@ -35,7 +35,7 @@ export const authOptions: NextAuthOptions = {
                     user.password
                 )
 
-                if (!isAuthenticated) throw new Error("Netinkamas slaptažodis, bandykite dar kartą.")
+                if (!isAuthenticated) throw new Error(encodeURIComponent("Netinkamas slaptazodis, bandykite dar kart."))
                 userAccount = {
                     _id: user._id,
                     email: user.email,
