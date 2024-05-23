@@ -1,7 +1,7 @@
 import connect from "../../../lib/mongoose";
 import type { NextApiRequest, NextApiResponse } from "next";
 import { GetOfferService } from "../../../services/api/offer/GetOfferService";
-import { DeleteOfferService } from "../../../services/api/offer";
+import { DeleteOfferService, PutOfferService } from "../../../services/api/offer";
 
 export default async function Offer(req: NextApiRequest, res: NextApiResponse) {
 
@@ -15,6 +15,11 @@ export default async function Offer(req: NextApiRequest, res: NextApiResponse) {
         }
         case "DELETE": {
             const offer = await DeleteOfferService(req?.query?.offer.toString())
+            res.json(offer);
+            break;
+        }
+        case "PUT": {
+            const offer = await PutOfferService(req.body)
             res.json(offer);
             break;
         }

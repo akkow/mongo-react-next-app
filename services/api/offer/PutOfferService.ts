@@ -1,9 +1,9 @@
 import { OfferDto } from "../../../dto/offer.dto";
 import { Offer } from "../../../schemas/offer.schema";
 
-export async function PutOfferService(offer: OfferDto): Promise<void> {
-    await Offer.create
-    ({
+export async function PutOfferService(offer: OfferDto) {
+    await Offer.updateOne
+    ({ $set: {
         title: offer.title,
         company: offer.company,
         recruiter: offer.recruiter,
@@ -12,7 +12,9 @@ export async function PutOfferService(offer: OfferDto): Promise<void> {
         city: offer.city,
         remote: offer.remote,
         description: offer.description,
-        category: offer.category,
+        category: offer.category
+        }
     })
-    console.log("new offer has been created...")
+    console.log(`[LOG]: ${offer._id} was updated.`);
+    return offer
 }

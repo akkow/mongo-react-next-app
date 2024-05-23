@@ -11,7 +11,7 @@ export default withAuth({
                 else if((token as any).user.isEmployer == false && req.nextUrl.pathname == '/createNewOffer') {
                     return false
                 }
-                else{
+                else {
                     return true
                 }
             }

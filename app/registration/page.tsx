@@ -9,18 +9,6 @@ import { redirect } from "next/navigation"
 export default function Registration() {
     const [userDto, setUserDto] = useState<UserDto | undefined>()
 
-    const loadUsers = () => {
-        fetch(createUrl(`api/users`), {
-            cache: "no-store"
-        })
-        .then((r) => r.json())
-        .then((c) => setUserDto(c))
-    }
-
-    useEffect(() => {
-        loadUsers()
-    }, [])
-
     const { status } = useSession()
 
     if(status==='authenticated')
@@ -30,7 +18,7 @@ export default function Registration() {
     else 
     {
         return (
-            <RegistrationForm {...{loadUsers, userDto, setUserDto}} />
+            <RegistrationForm {...{userDto, setUserDto}} />
         )
     }
 

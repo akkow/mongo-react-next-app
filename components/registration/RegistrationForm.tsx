@@ -8,14 +8,13 @@ import { FieldValues, useForm } from "react-hook-form";
 import Link from "next/link";
 
 type IProps = { 
-    loadUsers: () => void
     userDto?: UserDto
     setUserDto: (c: UserDto) => void
 }
 
 export function RegistrationForm(props: IProps) {
 
-    const { loadUsers, userDto, setUserDto} = props
+    const { userDto, setUserDto} = props
     const [registrationData, setRegistrationData] = useState<UserDto>({} as UserDto)
 
     const {
@@ -37,7 +36,7 @@ export function RegistrationForm(props: IProps) {
             callbackUrl: `/auth/newUser`
         })
     };
-
+    
     const onSubmit = async (data: FieldValues) => {
         // set validation data to registration data and post user to db
         registrationData.email = getValues('email')
@@ -53,7 +52,6 @@ export function RegistrationForm(props: IProps) {
         })
         .then((res) => {
             if(registrationData) setUserDto(undefined)
-            loadUsers()
         })
         .then(signInUser)
         .catch((e) => console.log(e))

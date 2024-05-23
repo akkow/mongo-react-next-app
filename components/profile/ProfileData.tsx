@@ -14,13 +14,12 @@ type IProps = {
 }
 
 export function ProfileData(props: IProps) {
-
     const { data: session } = useSession()
-
+    
     const { loadUser, setUserDto, userDto, user} = props
     const [profileShowingData, setProfileShowingData] = useState<UserDto>({} as UserDto)
 
-    const handleField = (e: ChangeEvent<any>) => {
+    const handleField = (e: ChangeEvent<HTMLInputElement>) => {
         setProfileShowingData({ ...profileShowingData, [e.target.id]: e.target.value })
     } 
 
