@@ -10,4 +10,5 @@ export class OfferDto {
     description: string;
     category: string;
     created_by: string;
+    applicants: string[];
 }

@@ -61,7 +61,6 @@ export function RegistrationFormEmployer(props: IProps) {
         .catch((e) => console.log(e))
     }
 
-    console.log(registrationData)
     return (
         <>
         <div className="relative flex flex-col items-center bg-transparent bg-clip-border text-gray-700 py-20">

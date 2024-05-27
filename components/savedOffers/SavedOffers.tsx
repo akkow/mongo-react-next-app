@@ -40,20 +40,20 @@ export function SavedOffers() {
         <div id="notification" className="hidden flex flex-col items-center mt-2 mb-10"><h1 className="font-bold text-2xl text-black mt-2 mb-6">Nėra įsimintų skelbimų</h1></div>
         {data.map((offer) => (
         <div id="saved-offer-card" className="relative flex flex-col items-center mt-4">
-            <Link href={`/offers/${offer?._id}`} key={offer._id} id='offer-card' className="flex flex-col items-center w-[510px] mb-4">
+            <Link href={`/offers/${offer?._id}`} key={offer?._id} id='offer-card' className="flex flex-col items-center w-[510px] mb-4">
                 <div className="w-full max-w-lg">
                     <div className="bg-white border hover:shadow-xl transition-all rounded-lg">
                         <div className="p-4">
                             <div>
                                 <div>
-                                    <div className="text-2xl text-black font-bold">{offer.title}</div>
+                                    <div className="text-2xl text-black font-bold">{offer?.title}</div>
                                 </div>
                                 <div className="flex">
-                                    <div className="text-gray-500 text-md">{offer.company}, {offer.city}</div>
-                                    <div className="text-green-500 font-bold text-md">{offer.remote ? " Remote" : ''}</div>
+                                    <div className="text-gray-500 text-md">{offer?.company}, {offer?.city}</div>
+                                    <div className="text-green-500 font-bold text-md">{offer?.remote ? " Remote" : ''}</div>
                                 </div>
-                                <div key={offer._id}>
-                                    <div className="text-black font-semibold bg-green-300 px-2 rounded-xl w-max text-md">nuo {offer.salary}€</div>
+                                <div key={offer?._id}>
+                                    <div className="text-black font-semibold bg-green-300 px-2 rounded-xl w-max text-md">nuo {offer?.salary}€</div>
                                 </div>
                             </div>
                         </div>

@@ -60,12 +60,6 @@ export function Header() {
           <a href='/offers' className="transition-colors hover:text-green-500 text-md font-bold leading-6 text-black flex items-center gap-x-2">
             Darbo skelbimai
           </a>
-          {!session?.user.isEmployer && <a href="/companies" className="transition-colors hover:text-green-500 text-md font-bold leading-6 text-black flex items-center gap-x-2">
-            Darbdaviai
-          </a>}
-          {!session?.user.isEmployer && <a href="/create-cv" className="transition-colors hover:text-green-500 text-md font-bold leading-6 text-black flex items-center gap-x-2">
-            Mano CV
-          </a>}
           {session && <a href="/savedoffers" className="transition-colors hover:text-green-500 text-md font-bold leading-6 text-black flex items-center gap-x-2">
             Įsiminti skelbimai
           </a>}

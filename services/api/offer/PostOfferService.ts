@@ -13,7 +13,8 @@ export async function PostOfferService(offer: OfferDto): Promise<void> {
         remote: offer.remote,
         description: offer.description,
         category: offer.category,
-        created_by: offer.created_by
+        created_by: offer.created_by,
+        applicants: offer.applicants
     })
     console.log("new offer has been created...")
 }

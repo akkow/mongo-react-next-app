@@ -35,7 +35,7 @@ export const authOptions: NextAuthOptions = {
                     user.password
                 )
 
-                if (!isAuthenticated) throw new Error(encodeURIComponent("Netinkamas slaptazodis, bandykite dar kart."))
+                if (!isAuthenticated) throw new Error("Netinkamas slaptazodis, bandykite dar kart.")
                 userAccount = {
                     _id: user._id,
                     email: user.email,
@@ -49,7 +49,8 @@ export const authOptions: NextAuthOptions = {
                     isEmployer: user.isEmployer,
                     createdOffers: user.createdOffers,
                     isAdmin: user.isAdmin,
-                    company: user.company
+                    company: user.company,
+                    appliedOffers: user.appliedOffers
                 }
                 return userAccount as any
             },

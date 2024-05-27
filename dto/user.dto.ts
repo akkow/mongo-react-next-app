@@ -12,4 +12,5 @@ export class UserDto {
     createdOffers: string[];
     isAdmin: boolean;
     company: string;
+    appliedOffers: string[];
 }

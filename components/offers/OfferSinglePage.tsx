@@ -6,6 +6,8 @@ import { ChangeEvent, FormEvent, useEffect, useState } from "react"
 import { LoadingDelay } from "../utils/LoadingDelay"
 import toast, { Toaster } from "react-hot-toast"
 import { Textarea } from "@material-tailwind/react"
+import e from "express"
+import { redirect } from "next/navigation"
 
 type IProps = {
     offer?: OfferDto
@@ -16,6 +18,7 @@ type IProps = {
 }
 
 export function OfferSinglePage(props: IProps) {
+
     const { offer, loadOffer } = props
 
     const { data: session } = useSession()
@@ -23,6 +26,7 @@ export function OfferSinglePage(props: IProps) {
     const [profileOfferData, setProfileOfferData] = useState<UserDto>({} as UserDto)
     const [offerData, setOfferData] = useState<OfferDto>({} as OfferDto)
     const [click, setClick] = useState(false)
+    const [applicatons, setApplications] = useState([])
     
     const handleField = (e: ChangeEvent<any>) => {
         if(e.target.name == 'remote') {
@@ -33,15 +37,25 @@ export function OfferSinglePage(props: IProps) {
     } 
 
     useEffect(() => {
-        fetch(`/api/offers/${offer._id}`).then((res) => res.json()).then((data) => setOfferData(data))   
+        fetch(`/api/offers/${offer._id}`).then((res) => res.json()).then((data) => setOfferData(data));
         fetch(`/api/users/${session.user._id}`)
         .then((res) => res.json())
         .then((data) => 
         {   
+            if(data.savedOffers.includes(offer._id)) {
+                setClick(true)
+            }
             document.getElementById('offer-card-dynamic').classList.remove('hidden')
             document.getElementById('loader').classList.add('hidden')
             setProfileOfferData(data)
         })
+
+        offer.applicants?.forEach((user_id) => {
+            fetch(`/api/users/${user_id}`).then((r) => r.json()).then((data) => {
+            if(!JSON.stringify(applicatons).includes(data._id)) {
+                applicatons.push(data)
+            }
+        })})
     }, [])
 
     const saveOffer = () => {
@@ -85,7 +99,6 @@ export function OfferSinglePage(props: IProps) {
         })
     }
 
-    
     const editOffer = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault()
         fetch(`/api/offers/${offer._id}`).then(r => r.json()).then((data: OfferDto) => {
@@ -101,6 +114,31 @@ export function OfferSinglePage(props: IProps) {
             else {
                 toast.error('Serverio klaida.')
             }
+        })
+    }
+
+    const sendApplication = () => {
+        if(!offerData.applicants.includes(session.user._id)) {
+            offerData.applicants.push(session.user._id);
+        }
+        fetch(`/api/offers/${offer._id}`, {
+            method: 'PUT',
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(offerData)
+        }).then((r) => {
+            if(r.status == 200) {
+                toast.success('Sėkmingai aplikavote!')
+            } else {
+                toast.error('Klaida!');
+            }
+        })
+        if(!profileOfferData.appliedOffers.includes(offer._id)) {
+            profileOfferData.appliedOffers.push(offer._id);
+        }
+        fetch(`/api/users/${profileOfferData._id}`, {
+            method: 'PUT',
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(profileOfferData)
         })
     }
 
@@ -178,12 +216,45 @@ export function OfferSinglePage(props: IProps) {
                     </div>
                 </Link>
             </div>
-            {offerData.created_by != session.user._id && 
+            {offerData.created_by != session.user._id && !profileOfferData.appliedOffers?.includes(offerData._id) &&
             <div className="self-center">
-                <button className="bg-black text-white btn btn-lg px-10 mt-20 hover:bg-green-500 border-hidden hover:shadow-xl" type="button">
+                <button onClick={() => sendApplication()} className="bg-black text-white btn btn-lg px-10 mt-20 hover:bg-green-500 border-hidden hover:shadow-xl" type="button">
                     Aplikuoti
                 </button> 
             </div>}
+            {offerData.created_by == session.user._id &&
+            <>
+            <div className="overflow-x-auto mt-10 p-4">
+            <h1 className="text-center mb-1 font-bold text-black text-xl uppercase">Aplikantai</h1>
+                <table className="table border-2 border-green-600">
+                    <thead>
+                        <tr className='text-xl text-center text-black border-2 border-green-600'>
+                            <th>#</th>
+                            <th>Vardas</th>
+                            <th>Pavardė</th>
+                            <th>Tel. nr.</th>
+                            <th>El. paštas</th>
+                            <th>Linked In</th>
+                            <th>Dabartinė pozicija</th>
+                        </tr>
+                    </thead> 
+                    <tbody>
+                        {applicatons?.map((application, index) => (
+                        <tr className='text-center text-xl text-black font-bold hover:bg-indigo-100 transition-all'>
+                            <th className='border border-green-600 '>{index+1}</th> 
+                            <td className='border border-green-600 '>{application.name}</td>
+                            <td className='border border-green-600 '>{application.surname}</td>
+                            <td className='border border-green-600 '>{application.phoneNumber}</td>
+                            <td className='border border-green-600 '>{application.email}</td>
+                            <td className='border border-green-600 '>{application.linkedIn}</td>
+                            <td className='border border-green-600 '>{application.position}</td>
+                        </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
+            </>}
+
             <dialog id="my_modal_5" className="modal modal-bottom sm:modal-middle">
             <div className="modal-box">
                 <h3 className="font-bold text-lg text-center text-zinc-300">REDAGUOTI SKELBIMĄ</h3>

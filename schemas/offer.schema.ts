@@ -12,6 +12,7 @@ export interface IOffer extends Document {
     description: string;
     category: string;
     created_by: string;
+    applicants: string[];
 }
 
 const OfferSchema: Schema = new Schema({
@@ -60,8 +61,9 @@ const OfferSchema: Schema = new Schema({
         required: [true, 'Please select a category'],
     },
     created_by: {
-        type: String,
-    }
+        type: String
+    },
+    applicants: [{ type: String }]
 });
 
 export const Offer: Model<IOffer, {}, {}, {}, any> = 
