@@ -176,7 +176,7 @@ export function OfferSinglePage(props: IProps) {
                             </div>
                         </div>
                         <div className="flex">
-                            <Link href={`companies/${offerData.company}`} className="text-xl text-gray-600 font-semibold hover:text-green-500 underline">{offerData.company}</Link>
+                            <Link href='#' className="text-xl text-gray-600 font-semibold hover:text-green-500 underline">{offerData.company}</Link>
                             <div className="text-xl text-gray-600 font-medium">{`, ${offerData.city}`}</div>
                             <div className="flex items-end flex-col text-xl text-green-500 font-semibold">{` ${offerData.remote ? 'Remote' : ''}`}</div>
                         </div>
