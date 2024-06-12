@@ -20,4 +20,4 @@ export default withAuth({
     },
 });
 
-export const config = { matcher: ['/dashboard', '/createNewOffer', '/offers', '/profile', '/savedoffers'] }
+export const config = { matcher: ['/dashboard', '/createNewOffer', '/offers', '/profile', '/savedoffers', '/api/users', '/api/offers'] }

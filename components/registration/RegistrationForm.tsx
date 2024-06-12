@@ -6,6 +6,7 @@ import { NextApiResponse } from "next";
 import { sign } from "crypto";
 import { FieldValues, useForm } from "react-hook-form";
 import Link from "next/link";
+import toast, { Toaster } from "react-hot-toast";
 
 type IProps = { 
     userDto?: UserDto
@@ -29,7 +30,7 @@ export function RegistrationForm(props: IProps) {
     }, [userDto])
 
     const signInUser = async () => {
-        signIn("credentials", {
+        await signIn("credentials", {
             email: getValues('email'),
             password: getValues('password'),
             redirect: true,
@@ -43,21 +44,29 @@ export function RegistrationForm(props: IProps) {
         registrationData.password = getValues('password')
         registrationData.name = getValues('name')
         registrationData.surname = getValues('lastname')
+        registrationData.isEmployer = false;
+        registrationData.company = '';
 
-        const link = `api/users`      
+        const link = `api/register`    
         fetch(createUrl(link), {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(registrationData),
         })
-        .then((res) => {
+        .then((res) => res.json())
+        .then((msg) => {
+            if(msg.error) {
+                toast.error(msg.error)
+            } else {
+                signInUser()
+            }
             if(registrationData) setUserDto(undefined)
         })
-        .then(signInUser)
         .catch((e) => console.log(e))
     }
     return (
         <>
+        <Toaster />
         <div className="relative flex flex-col items-center bg-transparent bg-clip-border text-gray-700 py-10">
             <div className="flex mx-3 p-6 shadow-xl rounded-xl">
                 <form onSubmit={handleSubmit(onSubmit)} className="mt-8 mb-2 w-80 max-w-screen-lg sm:w-96" noValidate>

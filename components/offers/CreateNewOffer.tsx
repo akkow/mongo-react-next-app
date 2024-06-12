@@ -180,7 +180,7 @@ export function CreateNewOffer(props: IProps) {
                         </button>
                     </form>
                 </div>
-                <div id='back-button' className="hidden my-4 flex flex-col items-center justify-center">
+                <div id='back-button' className="hidden my-4 flex-col items-center justify-center">
                     <button className="">
                         <div className="rounded-full bg-black text-white p-2 transition-all hover:bg-green-500">
                             <div className="">
